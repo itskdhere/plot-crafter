@@ -1,16 +1,23 @@
-// import { useState, useEffect, useRef, createContext } from "react"
+import { Routes, Route } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
-import { Route, Routes } from "react-router-dom";
 import "@mantine/core/styles.css";
 import "./App.css";
 
 import LandingPage from "./pages/LandingPage";
+import AuthPage from "./pages/AuthPage";
+import AppPage from "./pages/AppPage";
+
+const authPaths = ["auth", "signup", "signin"];
 
 function App() {
   return (
-    <MantineProvider>
+    <MantineProvider defaultColorScheme="dark">
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        {authPaths.map((path, index) => (
+          <Route key={index} path={`/${path}`} element={<AuthPage />} />
+        ))}
+        <Route path="/app" element={<AppPage />} />
       </Routes>
     </MantineProvider>
   );
