@@ -1,7 +1,3 @@
-body::-webkit-scrollbar {
-  display: none;
-}
-
 a {
   color: currentColor;
   text-decoration: none;

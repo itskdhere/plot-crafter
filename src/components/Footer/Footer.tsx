@@ -12,7 +12,7 @@ const data = [
   {
     title: "About",
     links: [
-      { label: "Home", link: "#/" },
+      { label: "Home", link: "#home" },
       { label: "Features", link: "#features" },
       { label: "FAQ", link: "#faq" },
       { label: "Contact", link: "#contact" },
@@ -40,19 +40,15 @@ const data = [
 
 const Footer = () => {
   const groups = data.map((group) => {
-    const links = group.links.map((link, index) => (
-      <Link to={link.link}>
-        <Text key={index} className={classes.link}>
-          {link.label}
-        </Text>
+    const links = group.links.map((link) => (
+      <Link key={link.label} to={link.link}>
+        <Text className={classes.link}>{link.label}</Text>
       </Link>
     ));
 
     return (
       <div className={classes.wrapper} key={group.title}>
-        <Text className={classes.title} key={group.title}>
-          {group.title}
-        </Text>
+        <Text className={classes.title}>{group.title}</Text>
         {links}
       </div>
     );
