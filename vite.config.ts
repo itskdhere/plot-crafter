@@ -1,5 +1,8 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -8,6 +11,15 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: `@import "./src/_mantine";`,
+      },
+    },
+  },
+  server: {
+    proxy: {
+      "/api": {
+        target: `${process.env.PROTOCOL}://${process.env.HOST}:${process.env.PORT}`,
+        changeOrigin: true,
+        secure: false,
       },
     },
   },
