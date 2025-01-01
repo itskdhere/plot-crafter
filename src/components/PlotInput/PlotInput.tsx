@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import {
   Container,
   Group,
@@ -13,20 +13,30 @@ import { IconSparkles } from "@tabler/icons-react";
 import { PlotContext } from "../../pages/AppPage/AppPage";
 
 function PlotInput() {
-  const [characterName, setCharacterName] = useState<string>("Nala");
-  const [characterType, setCharacterType] = useState<string>("Cat");
-  const [characterPersonality, setCharacterPersonality] = useState<string>(
-    "Nala is a very friendly cat."
+  const [characterName, setCharacterName] = useState<string>(
+    localStorage.getItem("characterName") || "Nala"
   );
-  const [characterLocation, setCharacterLocation] =
-    useState<string>("Andromeda Galaxy");
-  const [plotPremise, setPlotPremise] = useState<string[]>([
-    "adventure",
-    "love",
-  ]);
-  const [creativityLevel, setCreativityLevel] = useState<string>("high");
-  const [plotLength, setPlotLength] = useState<string>("long");
-  const { setPlotInput } = useContext(PlotContext);
+  const [characterType, setCharacterType] = useState<string>(
+    localStorage.getItem("characterType") || "Cat"
+  );
+  const [characterPersonality, setCharacterPersonality] = useState<string>(
+    localStorage.getItem("characterPersonality") ||
+      "Nala is a very friendly cat."
+  );
+  const [characterLocation, setCharacterLocation] = useState<string>(
+    localStorage.getItem("characterLocation") || "Andromeda Galaxy"
+  );
+  const [plotPremise, setPlotPremise] = useState<string[]>(
+    JSON.parse(localStorage.getItem("plotPremise") || '["adventure", "love"]')
+  );
+  const [creativityLevel, setCreativityLevel] = useState<string>(
+    localStorage.getItem("creativityLevel") || "high"
+  );
+  const [plotLength, setPlotLength] = useState<string>(
+    localStorage.getItem("plotLength") || "long"
+  );
+
+  const { setPlotInput, isCrafting, setIsCrafting } = useContext(PlotContext);
 
   const handleCraftPlot = async () => {
     setPlotInput({
@@ -38,26 +48,45 @@ function PlotInput() {
       creativityLevel,
       plotLength,
     });
+    setIsCrafting(true);
   };
+
+  useEffect(() => {
+    localStorage.setItem("characterName", characterName);
+    localStorage.setItem("characterType", characterType);
+    localStorage.setItem("characterPersonality", characterPersonality);
+    localStorage.setItem("characterLocation", characterLocation);
+    localStorage.setItem("plotPremise", JSON.stringify(plotPremise));
+    localStorage.setItem("creativityLevel", creativityLevel);
+    localStorage.setItem("plotLength", plotLength);
+  }, [
+    characterName,
+    characterType,
+    characterPersonality,
+    characterLocation,
+    plotPremise,
+    creativityLevel,
+    plotLength,
+  ]);
 
   return (
     <Container mt="md" mb="md">
       <Fieldset legend="Plot" radius="md">
         <TextInput
-          withAsterisk
+          required
           label="What is the name of the character ?"
           value={characterName}
           onChange={(event) => setCharacterName(event.currentTarget.value)}
         />
         <TextInput
-          withAsterisk
+          required
           mt="md"
           label="What type of character is it ?"
           value={characterType}
           onChange={(event) => setCharacterType(event.currentTarget.value)}
         />
         <TextInput
-          withAsterisk
+          required
           mt="md"
           label="What personality does the character have ?"
           value={characterPersonality}
@@ -66,7 +95,7 @@ function PlotInput() {
           }
         />
         <TextInput
-          withAsterisk
+          required
           mt="md"
           label="Where does the character live ?"
           value={characterLocation}
@@ -143,8 +172,9 @@ function PlotInput() {
           justify="center"
           radius="xl"
           onClick={handleCraftPlot}
+          disabled={isCrafting}
         >
-          Craft Plot
+          {isCrafting ? "Crafting..." : "Craft Plot"}
         </Button>
       </Fieldset>
     </Container>

@@ -21,7 +21,10 @@ function CopyToClipBtn(props: ICopyToClipBtnProps) {
     >
       <Button
         variant="light"
-        rightSection={
+        radius="xl"
+        size="md"
+        onClick={() => clipboard.copy(copyData)}
+        leftSection={
           clipboard.copied ? (
             <IconCheck
               style={{ width: rem(20), height: rem(20) }}
@@ -34,15 +37,12 @@ function CopyToClipBtn(props: ICopyToClipBtnProps) {
             />
           )
         }
-        radius="xl"
-        size="md"
         styles={{
           root: { paddingRight: rem(14), height: rem(48) },
-          section: { marginLeft: rem(22) },
+          // section: { marginLeft: rem(22) },
         }}
-        onClick={() => clipboard.copy(copyData)}
       >
-        Copy plot to clipboard
+        Copy Plot
       </Button>
     </Tooltip>
   );
