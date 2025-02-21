@@ -2,7 +2,9 @@ import { SignalConstants } from "os";
 import chalk from "chalk";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({
+  path: "../.env",
+});
 
 const PROTOCOL = process.env.PROTOCOL || "http";
 const HOST = process.env.HOST || "localhost";

@@ -1,51 +1,24 @@
 {
   "name": "plot-crafter",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "1.0.0",
+  "description": "",
   "scripts": {
-    "dev": "vite",
-    "server": "tsx watch --clear-screen=false --ignore src server",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "build": "tsc -b && vite build"
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "setup": "npm install && cd ./frontend && npm install && cd ../backend && npm install"
   },
-  "dependencies": {
-    "@ai-sdk/google": "^0.0.51",
-    "@mantine/core": "^7.11.0",
-    "@mantine/form": "^7.12.1",
-    "@mantine/hooks": "^7.11.0",
-    "@mantinex/dev-icons": "^1.0.2",
-    "@tabler/icons-react": "^3.7.0",
-    "ai": "^3.4.9",
-    "chalk": "^5.3.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-markdown": "^9.0.1",
-    "react-router-dom": "^6.24.0",
-    "zod": "^3.23.8"
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/itskdhere/plot-crafter.git"
   },
+  "author": "itskdhre",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/itskdhere/plot-crafter/issues"
+  },
+  "homepage": "https://github.com/itskdhere/plot-crafter#readme",
   "devDependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.0",
-    "@types/node": "^20.14.9",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/eslint-plugin": "^7.13.1",
-    "@typescript-eslint/parser": "^7.13.1",
-    "@vitejs/plugin-react-swc": "^3.5.0",
-    "eslint": "^8.57.0",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-react-refresh": "^0.4.7",
-    "postcss": "^8.4.38",
-    "postcss-preset-mantine": "^1.15.0",
-    "postcss-simple-vars": "^7.0.1",
-    "sass": "^1.77.6",
-    "tsx": "^4.19.1",
-    "typescript": "^5.2.2",
-    "vite": "^5.4.6"
+    "concurrently": "^9.1.2"
   }
 }
